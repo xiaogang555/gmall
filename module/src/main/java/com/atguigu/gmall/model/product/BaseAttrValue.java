@@ -20,6 +20,7 @@ public class BaseAttrValue extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+
 	@ApiModelProperty(value = "属性值名称")
 	@TableField("value_name")
 	private String valueName;
