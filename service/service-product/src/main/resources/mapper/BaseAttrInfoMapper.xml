@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.gmall.product.mapper.BaseAttrInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.gmall.model.product.BaseAttrInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="attrName" column="attr_name" jdbcType="VARCHAR"/>
+            <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+            <result property="categoryLevel" column="category_level" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,attr_name,category_id,
+        category_level
+    </sql>
+
+    <!--    自定义结果集-->
+    <resultMap id="AttrInfoAndValue"
+               type="com.atguigu.gmall.model.product.BaseAttrInfo"
+               autoMapping="true">
+        <id column="id" property="id"></id>
+        <collection
+                property="attrValueList"
+                ofType="com.atguigu.gmall.model.product.BaseAttrValue"
+                autoMapping="true">
+            <!--  autoMapping: 数据库的列和JavaBean属性一一对应符合驼峰命名规则          -->
+            <id column="vid" property="id"></id>
+        </collection>
+    </resultMap>
+    <select id="getattrInfoAndValueByCategoryId" resultMap="AttrInfoAndValue">
+        SELECT Binfo.*,  Bvalue.id vid,Bvalue.value_name,Bvalue.attr_id
+        FROM base_attr_info Binfo
+                 LEFT JOIN base_attr_value Bvalue ON Binfo.id = Bvalue.attr_id
+        WHERE (category_id = #{category1Id} AND category_level = 1)
+           OR (category_id = #{category2Id} AND category_level = 2)
+           OR (category_id = #{category3Id} AND category_level = 3)
+    </select>
+</mapper>
