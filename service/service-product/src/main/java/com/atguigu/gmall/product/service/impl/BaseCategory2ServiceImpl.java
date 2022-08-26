@@ -30,6 +30,6 @@ public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, B
 
 
 
-        return baseCategory2Mapper.getAllCategoryWithTree();;
+        return baseCategory2Mapper.getAllCategoryWithTree();
     }
 }
