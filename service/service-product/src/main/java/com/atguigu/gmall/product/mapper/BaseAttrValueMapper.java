@@ -15,6 +15,7 @@ import java.util.List;
 */
 public interface BaseAttrValueMapper extends BaseMapper<BaseAttrValue> {
 
+
     List<BaseAttrValue> getAttrValueList(@Param("attrId") Long attrId);
 }
 

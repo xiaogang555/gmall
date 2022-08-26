@@ -13,4 +13,7 @@
     <sql id="Base_Column_List">
         id,name,category1_id
     </sql>
+    <select id="getAllCategoryWithTree" resultType="com.atguigu.gmall.model.to.CategoryTreeto">
+
+    </select>
 </mapper>
