@@ -3,7 +3,9 @@ package com.atguigu.gmall.product.service.impl;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.model.to.CategoryViewTo;
 import com.atguigu.gmall.model.to.SkuDetailTo;
+import com.atguigu.gmall.model.to.ValueSkuJsonTo;
 import com.atguigu.gmall.product.mapper.BaseCategory3Mapper;
+import com.atguigu.gmall.product.mapper.SpuSaleAttrMapper;
 import com.atguigu.gmall.product.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -43,6 +45,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
 
     @Resource
     SpuSaleAttrService spuSaleAttrService;
+
+
+    @Resource
+    SpuSaleAttrMapper spuSaleAttrMapper;
 
     @Transactional
     @Override
@@ -120,6 +126,14 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
 
         List<SpuSaleAttr> saleAttrAndValueBySpuIdList = spuSaleAttrService.getSaleAttrAndValueAndAllAndOrder(skuInfo.getSpuId(),skuId);
         skuDetailTo.setSpuSaleAttrList(saleAttrAndValueBySpuIdList);
+
+
+        //sku所有的兄弟产品的销售属性名和值组合关系全部查出来，并封装成json★
+        //{"118|119":"50","118|119":"50"}例子
+        String valueSkuJsonTos= spuSaleAttrService.getAllBrotherJson(skuInfo.getSpuId());
+        skuDetailTo.setValuesSkuJson(valueSkuJsonTos);
+
+
 
 
         //5. sku类似推荐········未做

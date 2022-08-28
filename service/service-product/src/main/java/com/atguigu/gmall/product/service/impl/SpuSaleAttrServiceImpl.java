@@ -1,7 +1,9 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.util.Jsons;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.model.product.SpuSaleAttrValue;
+import com.atguigu.gmall.model.to.ValueSkuJsonTo;
 import com.atguigu.gmall.product.service.SpuSaleAttrValueService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,6 +63,22 @@ public class SpuSaleAttrServiceImpl extends ServiceImpl<SpuSaleAttrMapper, SpuSa
     public List<SpuSaleAttr> getSaleAttrAndValueAndAllAndOrder(Long spuId, Long skuId) {
 
         return spuSaleAttrMapper.getSaleAttrAndValueAndAllAndOrder(spuId,skuId);
+    }
+
+    @Override
+    public String getAllBrotherJson(Long spuId) {
+       List<ValueSkuJsonTo> valueSkuJsonTos= spuSaleAttrMapper.getAllBrotherJson(spuId);
+       //需要转为{"50":"118|119"}例子(反过来)
+
+        HashMap<String, Long> map = new HashMap<>();
+        for (ValueSkuJsonTo valueSkuJsonTo : valueSkuJsonTos) {
+            String valueJson = valueSkuJsonTo.getValueJson();
+            Long skuId = valueSkuJsonTo.getSkuId();
+            map.put(valueJson,skuId);
+        }
+        String s = Jsons.toString(map);
+
+        return  s;
     }
 }
 
