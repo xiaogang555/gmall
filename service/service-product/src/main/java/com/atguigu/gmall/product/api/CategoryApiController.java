@@ -4,6 +4,7 @@ package com.atguigu.gmall.product.api;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.to.CategoryTreeto;
 import com.atguigu.gmall.product.service.BaseCategory2Service;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ public class CategoryApiController {
     BaseCategory2Service baseCategory2Service;
 
 
+    @ApiOperation(value = "三级分类封装")
     @RequestMapping(value = "/category/tree",method = RequestMethod.GET)
     public Result getAllCategoryWithTree(){
 

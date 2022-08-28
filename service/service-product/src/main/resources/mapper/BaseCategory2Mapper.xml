@@ -13,7 +13,36 @@
     <sql id="Base_Column_List">
         id,name,category1_id
     </sql>
-    <select id="getAllCategoryWithTree" resultType="com.atguigu.gmall.model.to.CategoryTreeto">
 
+    <resultMap id="CategoryTreeto" type="com.atguigu.gmall.model.to.CategoryTreeto">
+        <id column="id" property="categoryId"></id>
+
+        <result property="categoryName" column="name"></result>
+        <collection property="categoryChild" ofType="com.atguigu.gmall.model.to.CategoryTreeto">
+            <id column="category2Id" property="categoryId"></id>
+
+            <result property="categoryName" column="categoryName"></result>
+            <collection property="categoryChild" ofType="com.atguigu.gmall.model.to.CategoryTreeto">
+                <id column="category3Id" property="categoryId"></id>
+
+                <result property="categoryName" column="category3Name"></result>
+            </collection>
+        </collection>
+
+    </resultMap>
+    
+
+    <select id="getAllCategoryWithTree" resultMap="CategoryTreeto">
+        SELECT bc1.id,
+               bc1.name,
+               bc2.id AS category2Id,
+               bc2.name AS category2Name,
+               bc2.category1_id,
+               bc3.id AS category3Id,
+               bc3.name category3Name,
+               bc3.category2_id
+        FROM base_category1 bc1
+                 LEFT JOIN base_category2 bc2 ON bc1.id = bc2.category1_id
+                 LEFT JOIN base_category3 bc3 ON bc2.id = bc3.category2_id
     </select>
 </mapper>

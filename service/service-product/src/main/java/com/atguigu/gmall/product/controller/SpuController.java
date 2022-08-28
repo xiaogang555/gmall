@@ -27,8 +27,7 @@ public class SpuController {
     @Autowired
     SpuSaleAttrService spuSaleAttrService;
 
-    @Autowired
-    SpuSaleAttrValueService spuSaleAttrValueService;
+
 
     @RequestMapping(value = "/{pagenum}/{pagesize}",method = RequestMethod.GET)
     public Result getSupPage(@PathVariable Long pagenum,
@@ -70,24 +69,11 @@ public class SpuController {
     @RequestMapping(value = "/spuSaleAttrList/{spuId}",method =RequestMethod.GET) //spuSaleAttrList/{spuId}
     public Result getSpuSaleAttrList(@PathVariable Long spuId){
 
-        LambdaQueryWrapper<SpuSaleAttr> queryWrapper = new LambdaQueryWrapper<>();
-        LambdaQueryWrapper<SpuSaleAttr> wrapper = queryWrapper.eq(SpuSaleAttr::getSpuId, spuId);
 
-        List<SpuSaleAttr> list = spuSaleAttrService.list(wrapper);
-
-        for (SpuSaleAttr saleAttr : list) {
-            Long id = saleAttr.getBaseSaleAttrId();
-
-            LambdaQueryWrapper<SpuSaleAttrValue> queryWrapper1 = new LambdaQueryWrapper<>();
-
-            LambdaQueryWrapper<SpuSaleAttrValue> wrapper1 = queryWrapper1.eq(SpuSaleAttrValue::getBaseSaleAttrId, id).eq(SpuSaleAttrValue::getSpuId, spuId);
+        List<SpuSaleAttr> list = spuSaleAttrService.getSaleAttrAndValueBySpuId(spuId);
 
 
 
-            List<SpuSaleAttrValue> list1 = spuSaleAttrValueService.list(wrapper1);
-
-            saleAttr.setSpuSaleAttrValueList(list1);
-        }
 
         return Result.ok(list);
     }
