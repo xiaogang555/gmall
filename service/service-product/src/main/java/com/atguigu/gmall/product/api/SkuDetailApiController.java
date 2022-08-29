@@ -2,11 +2,19 @@ package com.atguigu.gmall.product.api;
 
 
 import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.model.product.SkuImage;
 import com.atguigu.gmall.model.product.SkuInfo;
+import com.atguigu.gmall.model.product.SpuSaleAttr;
+import com.atguigu.gmall.model.to.CategoryViewTo;
 import com.atguigu.gmall.model.to.SkuDetailTo;
+import com.atguigu.gmall.product.service.BaseCategory3Service;
 import com.atguigu.gmall.product.service.SkuInfoService;
+import com.atguigu.gmall.product.service.SpuSaleAttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 
 //商品详细数据库层操作
@@ -14,25 +22,99 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/inner/rpc/product")//命名规范
 public class SkuDetailApiController {
 
+
+    
+//    @RequestMapping(value = "/skudetail/{skuId}",method = RequestMethod.GET)
+//    public Result<SkuDetailTo> getSkuDetail(@PathVariable Long skuId){
+//
+//        SkuDetailTo skuDetailTo= skuInfoService.getSkuDetail(skuId);
+//
+//    return Result.ok(skuDetailTo);
+//    }
+
+
     @Autowired
     SkuInfoService skuInfoService;
-    
-    @RequestMapping(value = "/skudetail/{skuId}",method = RequestMethod.GET)
-    public Result<SkuDetailTo> getSkuDetail(@PathVariable Long skuId){
 
-        SkuDetailTo skuDetailTo= skuInfoService.getSkuDetail(skuId);
+    @Autowired
+    SpuSaleAttrService spuSaleAttrService;
+
+    @Autowired
+    BaseCategory3Service baseCategory3Service;
+
+    /**
+     * 查询sku的基本信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/skudetail/info/{skuId}")
+    public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId){
+        SkuInfo skuInfo = skuInfoService.getDetailSkuInfo(skuId);
+        return Result.ok(skuInfo);
+    }
 
 
-        //包含以下内容：1.sku所属分类完整信息
-        // 2. sku基本信息
-        // 3.sku图片信息
-        // 4.sku所属spu当时定义的所有的销售属性名和值组合【标识出当前sku到底是spu的那种组合，页面要高亮显示】
-        //5. sku类似推荐········未做
-        //6. sku详情介绍
-        //7. sku规格参数
-        //8. sku售后 评论··········未做
-        
-    return Result.ok(skuDetailTo);
+    /**
+     * 查询sku的图片信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/skudetail/images/{skuId}")
+    public Result<List<SkuImage>> getSkuImages(@PathVariable("skuId")Long skuId){
+        List<SkuImage> images = skuInfoService.getDetailSkuImages(skuId);
+        return Result.ok(images);
+    }
+
+
+    /**
+     * 查询sku的实时价格
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/skudetail/price/{skuId}")
+    public Result<BigDecimal> getSku1010Price(@PathVariable("skuId")Long skuId){
+        BigDecimal price = skuInfoService.get1010Price(skuId);
+        return Result.ok(price);
+    }
+
+
+    /**
+     * 查询sku对应的spu定义的所有销售属性名和值。并且标记出当前sku是哪个
+     * @param skuId
+     * @param spuId
+     * @return
+     */
+    @GetMapping("/skudetail/saleattrvalues/{skuId}/{spuId}")
+    public Result<List<SpuSaleAttr>> getSkuSaleattrvalues(@PathVariable("skuId") Long skuId,
+                                                          @PathVariable("spuId") Long spuId){
+        List<SpuSaleAttr> saleAttrList = spuSaleAttrService
+                .getSaleAttrAndValueAndAllAndOrder(spuId,skuId);
+        return Result.ok(saleAttrList);
+    }
+
+
+    /**
+     * 查sku组合 valueJson
+     * @param spuId
+     * @return
+     */
+    @GetMapping("/skudetail/valuejson/{spuId}")
+    public Result<String> getSKuValueJson(@PathVariable("spuId") Long spuId){
+        String valuejson = spuSaleAttrService.getAllBrotherJson(spuId);
+        return Result.ok(valuejson);
+    }
+
+
+    /**
+     * 查分类
+     * @param
+     * @return
+     */
+    @GetMapping("/skudetail/categoryview/{category3Id}")
+    public Result<CategoryViewTo> getCategoryView(@PathVariable("category3Id") Long category3Id){
+
+        CategoryViewTo categoryViewTo = baseCategory3Service.getCategoryView(category3Id);
+        return Result.ok(categoryViewTo);
     }
 
 }

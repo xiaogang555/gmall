@@ -20,4 +20,6 @@ public interface SpuSaleAttrService extends IService<SpuSaleAttr> {
 
     //查询所有sku销售组合，并封装成json
   String getAllBrotherJson(Long spuId);
+
+
 }

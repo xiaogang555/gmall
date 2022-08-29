@@ -24,3 +24,9 @@ app:
     ak: admin
     sk: admin123456
     bucket-name: shangpinhui
+
+  thread-pool:
+    core: 4
+    max: 4
+    queue-size: 2000
+    keep-alive-time: 300

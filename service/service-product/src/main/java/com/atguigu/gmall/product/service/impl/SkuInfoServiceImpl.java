@@ -94,6 +94,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     }
 
     //查询sku详情
+    @Deprecated
     @Override
     public SkuDetailTo getSkuDetail(Long skuId) {
         SkuDetailTo skuDetailTo = new SkuDetailTo();
@@ -114,8 +115,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         skuInfo.setSkuImageList(skuImages);
 
         //实时价格查询
-
-
+        //因为全查性能低，老师自定义了sql
         BigDecimal price = skuInfo.getPrice();
         skuDetailTo.setPrice(price);
 
@@ -145,11 +145,43 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         return skuDetailTo;
     }
 
-//    @Override//全查性能低 老师自定义
-//    public BigDecimal getNowPrice(Long skuId) {
-//
-//        return price;
-//    }
+    //1、查基本信息
+    @Override
+    public SkuInfo getDetailSkuInfo(Long skuId) {
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        return skuInfo;
+    }
+
+
+    //2、查商品图片信息
+
+    @Override
+    public List<SkuImage> getDetailSkuImages(Long skuId) {
+        List<SkuImage> skuImages= skuImageService.getSkuImage(skuId);
+        return null;
+    }
+
+
+
+    //3、查商品实时价格
+    @Override
+    public BigDecimal get1010Price(Long skuId) {
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        BigDecimal price = skuInfo.getPrice();
+        return price;
+    }
+
+    //4、查销售属性名值
+
+
+    //5、查sku组合
+
+    //6、查分类
+
+
+
+
+
 }
 
 
