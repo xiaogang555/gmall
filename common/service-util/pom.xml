@@ -10,18 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>service-util</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.atguigu.gmall</groupId>
             <artifactId>common-util</artifactId>
             <version>1.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <!-- redis -->
@@ -38,10 +37,11 @@
         </dependency>
 
         <!-- redisson 分布式锁-->
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.15.3</version>
+            <version>3.17.6</version>
         </dependency>
 
         <!--mybatis-plus-->
@@ -50,6 +50,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
     </dependencies>
+
 </project>

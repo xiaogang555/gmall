@@ -13,7 +13,4 @@
     <sql id="Base_Column_List">
         id,value_name,attr_id
     </sql>
-    <select id="getAttrValueList" resultType="com.atguigu.gmall.model.product.BaseAttrValue">
-        SELECT * FROM base_attr_value WHERE attr_id=#{attrId}
-    </select>
 </mapper>

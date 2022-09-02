@@ -4,30 +4,29 @@ import com.atguigu.gmall.model.product.SpuImage;
 import com.atguigu.gmall.model.product.SpuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.model.product.SpuSaleAttrValue;
+import com.atguigu.gmall.product.mapper.SpuImageMapper;
 import com.atguigu.gmall.product.service.SpuImageService;
 import com.atguigu.gmall.product.service.SpuSaleAttrService;
 import com.atguigu.gmall.product.service.SpuSaleAttrValueService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import com.atguigu.gmall.product.service.SpuInfoService;
 import com.atguigu.gmall.product.mapper.SpuInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* @author 孙永刚
+* @author lfy
 * @description 针对表【spu_info(商品表)】的数据库操作Service实现
-* @createDate 2022-08-24 16:43:06
+* @createDate 2022-08-23 10:12:44
 */
 @Service
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
     implements SpuInfoService{
 
-    @Resource
+    @Autowired
     SpuInfoMapper spuInfoMapper;
 
     @Autowired
@@ -42,13 +41,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
 
     @Transactional
     @Override
-    public void saveSpuInfo(SpuInfo spuInfo) {
+    public void saveSpuInfo(SpuInfo info) {
         //1、把 spu基本信息保存到 spu_info表中
-        spuInfoMapper.insert(spuInfo);
-        Long spuId = spuInfo.getId(); //拿到spu保存后的自增id
+        spuInfoMapper.insert(info);
+        Long spuId = info.getId(); //拿到spu保存后的自增id
 
         //2、把 spu的图片保存到 spu_image
-        List<SpuImage> imageList = spuInfo.getSpuImageList();
+        List<SpuImage> imageList = info.getSpuImageList();
         for (SpuImage image : imageList) {
             //回填spu_id
             image.setSpuId(spuId);
@@ -58,7 +57,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoMapper, SpuInfo>
 
 
         //3、保存销售属性名 到 spu_sale_attr
-        List<SpuSaleAttr> attrNameList = spuInfo.getSpuSaleAttrList();
+        List<SpuSaleAttr> attrNameList = info.getSpuSaleAttrList();
         for (SpuSaleAttr attr : attrNameList) {
             //回填spuId
             attr.setSpuId(spuId);

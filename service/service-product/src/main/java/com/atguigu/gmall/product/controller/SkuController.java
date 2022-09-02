@@ -2,67 +2,71 @@ package com.atguigu.gmall.product.controller;
 
 
 import com.atguigu.gmall.common.result.Result;
-import com.atguigu.gmall.model.product.SkuImage;
 import com.atguigu.gmall.model.product.SkuInfo;
-import com.atguigu.gmall.model.product.SpuImage;
-import com.atguigu.gmall.model.product.SpuInfo;
 import com.atguigu.gmall.product.service.SkuInfoService;
-import com.atguigu.gmall.product.service.SpuImageService;
-import com.atguigu.gmall.product.service.SpuInfoService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+/**
+ * Sku管理
+ */
 @RequestMapping("/admin/product")
+@RestController
 public class SkuController {
-    @Autowired
-    SpuImageService spuImageService;
+
+
+
 
     @Autowired
     SkuInfoService skuInfoService;
 
-
-    @RequestMapping(value = "/spuImageList/{spuId}",method = RequestMethod.GET)///spuImageList/{spuId}
-    public Result getSpuImageList(@PathVariable Long spuId){
-
-        LambdaQueryWrapper<SpuImage> queryWrapper = new LambdaQueryWrapper<>();
-        LambdaQueryWrapper<SpuImage> wrapper = queryWrapper.eq(SpuImage::getSpuId, spuId);
-        List<SpuImage> list = spuImageService.list(wrapper);
-
-
-        return Result.ok(list);
-    }
-    @RequestMapping(value = "/saveSkuInfo",method =RequestMethod.POST) //saveSkuInfo
-    public Result saveSkuInfo(@RequestBody SkuInfo skuInfo){
-
-        skuInfoService.saveSkuInfo(skuInfo);
-    return Result.ok();
-    }
-    @RequestMapping(value = "/list/{pagenum}/{pagesize}",method =RequestMethod.GET)//list/{page}/{limit}
-    public Result getSkuPageList(@PathVariable Long pagenum,
-                                 @PathVariable Long pagesize){
-
-        IPage<SkuInfo> page=new Page<>(pagenum,pagesize);
-
-        IPage<SkuInfo> result = skuInfoService.page(page);
+    /**
+     * sku分页查询
+     * @return
+     */
+    @GetMapping("/list/{pn}/{ps}")
+    public Result getSkuList(@PathVariable("pn") Long pn,
+                             @PathVariable("ps") Long ps){
+        Page<SkuInfo> page =new Page<>(pn,ps);
+        Page<SkuInfo> result = skuInfoService.page(page);
         return Result.ok(result);
     }
 
 
+    /**
+     * 接前端的json数据，可以使用逆向方式生成vo【和前端对接的JavaBean】
+     * https://www.json.cn/json/json2java.html  根据json模型生成vo
+     *
+     *
+     * @param info
+     * @return
+     */
+    @PostMapping("/saveSkuInfo")
+    public Result saveSku(@RequestBody SkuInfo info){
 
+        //sku的大保存
+        skuInfoService.saveSkuInfo(info);
 
-    @RequestMapping(value = "/onSale/{skuId}",method =RequestMethod.GET)
+        return Result.ok();
+    }
+
+    /**
+     * 商品下架
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/cancelSale/{skuId}")
     public Result cancelSale(@PathVariable("skuId")Long skuId){
         skuInfoService.cancelSale(skuId);
         return Result.ok();
     }
 
-    @RequestMapping(value = "/cancelSale/{skuId}",method =RequestMethod.GET)
+    /**
+     * 商品上架
+     * @return
+     */
+    @GetMapping("/onSale/{skuId}")
     public Result onSale(@PathVariable("skuId")Long skuId){
         skuInfoService.onSale(skuId);
         return Result.ok();

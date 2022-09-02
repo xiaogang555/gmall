@@ -9,6 +9,7 @@ spring:
   redis:
     host: 192.168.200.100
     password: syg123456
+
   zipkin:
     base-url: http://192.168.200.100:9411/
     sender:

@@ -19,10 +19,16 @@ import java.util.List;
 @FeignClient("service-product")
 public interface SkuDetailFeignClient {
 
-//    @GetMapping("/skudetail/{skuId}")
+//    @GetMapping("/skudetail/{skuId}")  //不要用这个超级接口
 //    Result<SkuDetailTo> getSkuDetail(@PathVariable("skuId") Long skuId);
-@GetMapping("/skudetail/info/{skuId}")
-public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
+
+    /**
+     * 查询sku的基本信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/skudetail/info/{skuId}")
+    Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
 
 
     /**
@@ -31,7 +37,7 @@ public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
      * @return
      */
     @GetMapping("/skudetail/images/{skuId}")
-    public Result<List<SkuImage>> getSkuImages(@PathVariable("skuId")Long skuId);
+    Result<List<SkuImage>> getSkuImages(@PathVariable("skuId")Long skuId);
 
 
     /**
@@ -40,8 +46,7 @@ public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
      * @return
      */
     @GetMapping("/skudetail/price/{skuId}")
-    public Result<BigDecimal> getSku1010Price(@PathVariable("skuId")Long skuId);
-
+    Result<BigDecimal> getSku1010Price(@PathVariable("skuId")Long skuId);
 
     /**
      * 查询sku对应的spu定义的所有销售属性名和值。并且标记出当前sku是哪个
@@ -50,7 +55,7 @@ public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
      * @return
      */
     @GetMapping("/skudetail/saleattrvalues/{skuId}/{spuId}")
-    public Result<List<SpuSaleAttr>> getSkuSaleattrvalues(@PathVariable("skuId") Long skuId,
+    Result<List<SpuSaleAttr>> getSkuSaleattrvalues(@PathVariable("skuId") Long skuId,
                                                           @PathVariable("spuId") Long spuId);
 
 
@@ -60,15 +65,15 @@ public Result<SkuInfo> getSkuInfo(@PathVariable("skuId") Long skuId);
      * @return
      */
     @GetMapping("/skudetail/valuejson/{spuId}")
-    public Result<String> getSKuValueJson(@PathVariable("spuId") Long spuId);
+    Result<String> getSKuValueJson(@PathVariable("spuId") Long spuId);
 
 
     /**
      * 查分类
-     * @param
+     * @param c3Id
      * @return
      */
-    @GetMapping("/skudetail/categoryview/{category3Id}")
-    public Result<CategoryViewTo> getCategoryView(@PathVariable("category3Id") Long category3Id);
+    @GetMapping("/skudetail/categoryview/{c3Id}")
+    Result<CategoryViewTo> getCategoryView(@PathVariable("c3Id") Long c3Id);
 
 }

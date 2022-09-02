@@ -6,5 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileUploadService {
 
-    String fileUpload(MultipartFile file) throws Exception;
+    /**
+     * 文件上传
+     * @param file   需要上传的文件
+     * @return 返回文件在minio中的存储地址
+     */
+    String upload(MultipartFile file) throws Exception;
+
 }

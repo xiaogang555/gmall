@@ -10,9 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>service-product</artifactId>
+    <description>商品服务【分类、商品信息、品牌...】</description>
 
-    <description>商品服务【分类，商品信息，品牌..】</description>
-
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
 
     <dependencies>
@@ -21,25 +24,31 @@
             <artifactId>minio</artifactId>
             <version>7.0.2</version>
         </dependency>
-<!--springboot  测试场景导入-->
+        <!--        导入测试场景-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+
+
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

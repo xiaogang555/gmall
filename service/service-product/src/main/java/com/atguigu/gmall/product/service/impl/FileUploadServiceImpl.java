@@ -5,15 +5,14 @@ import com.atguigu.gmall.product.config.minio.MinioProperties;
 import com.atguigu.gmall.product.service.FileUploadService;
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import java.io.InputStream;
 import java.util.Date;
 import java.util.UUID;
+
 
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
@@ -27,15 +26,19 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     //未来会有一个全局的异常处理器统一处理异常
     @Override
-    public String fileUpload(MultipartFile file) throws Exception {
+    public String upload(MultipartFile file) throws Exception {
 
 
         //未来其他代码里面如果要上传各种东西可能都需要自己new MinioClient
-        //1、创建出一个 MinioClient（在配置类中已设置）
+        //1、创建出一个 MinioClient
 
 
-        //2、先判断这个桶是否存在（在配置类中已设置）
-
+        //2、先判断这个桶是否存在
+        boolean gmall = minioClient.bucketExists(minioProperties.getBucketName());
+        if(!gmall){
+            //桶不存在
+            minioClient.makeBucket(minioProperties.getBucketName());
+        }
 
         //3、给桶里面上传文件
         //objectName：对象名，上传的文件名
@@ -60,7 +63,7 @@ public class FileUploadServiceImpl implements FileUploadService {
                 dateStr+"/"+filename, //自己指定的唯一名
                 inputStream,
                 options
-        );
+                );
 
 
         //5、http://192.168.200.100:9000/gmall/filename
@@ -75,5 +78,4 @@ public class FileUploadServiceImpl implements FileUploadService {
         //3、
         return url;
     }
-
 }

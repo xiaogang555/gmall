@@ -8,16 +8,16 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
-* @author 孙永刚
+* @author lfy
 * @description 针对表【base_attr_info(属性表)】的数据库操作Mapper
-* @createDate 2022-08-23 20:50:29
+* @createDate 2022-08-23 10:12:44
 * @Entity com.atguigu.gmall.product.domain.BaseAttrInfo
 */
-
-//@Param("houseId") Long houseId  示例
 public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
 
-    List<BaseAttrInfo> getattrInfoAndValueByCategoryId(@Param("category1Id")Long category1Id, @Param("category2Id")Long category2Id, @Param("category3Id")Long category3Id);
+    List<BaseAttrInfo> getAttrInfoAndValueByCategoryId(@Param("c1Id") Long c1Id,
+                                                       @Param("c2Id") Long c2Id,
+                                                       @Param("c3Id") Long c3Id);
 }
 
 

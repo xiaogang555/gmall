@@ -12,9 +12,13 @@
 
     <artifactId>server-gateway</artifactId>
 
-
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
+
         <!-- 服务注册 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -26,8 +30,7 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
-
-        <!-- 流量控制\熔断降级 -->
+        <!-- 流量控制、熔断降级 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
@@ -47,12 +50,14 @@
         </dependency>
 
 
-<!--        网关-->
+        <!--        网关-->
+<!--        spring-cloud-starter-gateway-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
     </dependencies>
+
 
 </project>

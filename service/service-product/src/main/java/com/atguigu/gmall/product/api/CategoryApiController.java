@@ -1,35 +1,40 @@
 package com.atguigu.gmall.product.api;
 
-
 import com.atguigu.gmall.common.result.Result;
-import com.atguigu.gmall.model.to.CategoryTreeto;
+
+import com.atguigu.gmall.model.to.CategoryTreeTo;
 import com.atguigu.gmall.product.service.BaseCategory2Service;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 分类有关的API
+ *  以后所有的远程调用都是内部接口：命名规范：/api/inner/rpc/模块名/路径
+ */
+@Api(tags = "三级分类的RPC接口")
+@RequestMapping("/api/inner/rpc/product")
 @RestController
-@RequestMapping("/api/inner/rpc/product")//命名规范
 public class CategoryApiController {
-    /**
-     * date 2022/8/27 1:12
-     * @message 查询所有分类并封装成树形菜单结构
-     * @author 孙永刚
-    */
+
+
     @Autowired
     BaseCategory2Service baseCategory2Service;
-
-
-    @ApiOperation(value = "三级分类封装")
-    @RequestMapping(value = "/category/tree",method = RequestMethod.GET)
+    /**
+     * 查询所有分类并封装成树形菜单结构
+     * @return
+     */
+    @ApiOperation("三级分类树形结构查询")
+    @GetMapping("/category/tree")
     public Result getAllCategoryWithTree(){
 
-        List<CategoryTreeto> categoryTreetos =baseCategory2Service.getAllCategoryWithTree();
+        List<CategoryTreeTo> categoryTreeTos = baseCategory2Service.getAllCategoryWithTree();
 
-    return Result.ok(categoryTreetos);
+        return Result.ok(categoryTreeTos);
     }
 }

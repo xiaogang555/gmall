@@ -5,9 +5,9 @@ import com.atguigu.gmall.model.product.SpuImage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
-* @author 孙永刚
+* @author lfy
 * @description 针对表【spu_image(商品图片表)】的数据库操作Mapper
-* @createDate 2022-08-24 16:43:06
+* @createDate 2022-08-23 10:12:44
 * @Entity com.atguigu.gmall.product.domain.SpuImage
 */
 public interface SpuImageMapper extends BaseMapper<SpuImage> {

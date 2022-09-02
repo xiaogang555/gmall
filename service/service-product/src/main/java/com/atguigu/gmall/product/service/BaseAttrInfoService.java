@@ -3,19 +3,28 @@ package com.atguigu.gmall.product.service;
 
 import com.atguigu.gmall.model.product.BaseAttrInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
-* @author 孙永刚
+* @author lfy
 * @description 针对表【base_attr_info(属性表)】的数据库操作Service
-* @createDate 2022-08-23 20:50:29
+* @createDate 2022-08-23 10:12:44
 */
 public interface BaseAttrInfoService extends IService<BaseAttrInfo> {
 
-//@Param("houseId") Long houseId  实例
-    List<BaseAttrInfo> getattrInfoAndValueByCategoryId(Long category1Id, Long category2Id, Long category3Id);
+    /**
+     *
+     * @param c1Id  1级分类id
+     * @param c2Id  2级分类id
+     * @param c3Id  3级分类id
+     * @return
+     */
+    List<BaseAttrInfo> getAttrInfoAndValueByCategoryId(Long c1Id, Long c2Id, Long c3Id);
 
-    void saveAttrInfo(BaseAttrInfo baseAttrInfo);
+    /**
+     * 保存平台属性
+     * @param info
+     */
+    void saveAttrInfo(BaseAttrInfo info);
 }

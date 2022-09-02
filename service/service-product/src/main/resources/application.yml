@@ -9,6 +9,9 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    host: 192.168.200.100
+    password: syg123456
 
 
 #配置链路追踪地址
