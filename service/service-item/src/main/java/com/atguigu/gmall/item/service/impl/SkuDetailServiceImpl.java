@@ -4,6 +4,7 @@ import com.atguigu.gmall.common.constant.SysRedisConst;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.common.util.Jsons;
 import com.atguigu.gmall.item.cache.CacheOpsService;
+import com.atguigu.gmall.item.cache.annotation.GmallCache;
 import com.atguigu.gmall.item.feign.SkuDetailFeignClient;
 import com.atguigu.gmall.item.service.SkuDetailService;
 import com.atguigu.gmall.model.product.SkuImage;
@@ -164,8 +165,14 @@ public class SkuDetailServiceImpl implements SkuDetailService {
         return detailTo;
     }
 
+    @GmallCache
     @Override
     public SkuDetailTo getSkuDetail(Long skuId) {
+
+
+        return null;
+    }
+    public SkuDetailTo getSkuDetailLast2(Long skuId) {
         String cacheKey = SysRedisConst.SKU_INFO_PREFIX +skuId;
         //1、先查缓存
         SkuDetailTo cacheData = cacheOpsService.getCacheData(cacheKey,SkuDetailTo.class);
@@ -228,7 +235,7 @@ public class SkuDetailServiceImpl implements SkuDetailService {
 //    }
 
       //500w  100w：49  100w：50  100w：51   100w: 52    100w: 53
-    public SkuDetailTo getSkuDetailXxxxFeature(Long skuId) {
+    public SkuDetailTo getSkuDetailLast3(Long skuId) {
         lockPool.put(skuId,new ReentrantLock());
         //每个不同的sku，用自己专用的锁
         //1、看缓存中有没有  sku:info:50
@@ -289,6 +296,12 @@ public class SkuDetailServiceImpl implements SkuDetailService {
     }
 
 
+
+
+
+
+
+
 //    @Override  //使用本地缓存
 //    public SkuDetailTo getSkuDetail(Long skuId) {
 //
@@ -308,4 +321,5 @@ public class SkuDetailServiceImpl implements SkuDetailService {
 //        //4、缓存有
 //        return cacheData;
 //    }
+
 }
