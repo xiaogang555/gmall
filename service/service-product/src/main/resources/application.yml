@@ -1,4 +1,4 @@
-#application.yml优先级低，项目刚一启动并不能被读取到
+        #application.yml优先级低，项目刚一启动并不能被读取到
 #需要一个高优先级文件bootstrap.properties
 server:
   port: 7000

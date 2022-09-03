@@ -13,6 +13,7 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import({Swagger2Config.class, RedissonAutoConfiguration.class})
 @MapperScan("com.atguigu.gmall.product.mapper") //自动扫描这个包下的所有Mapper接口
 @SpringCloudApplication
+@EnableScheduling
 public class ProductMainApplication {
 
     public static void main(String[] args) {
