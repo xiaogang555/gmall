@@ -28,10 +28,12 @@ import org.springframework.context.annotation.Import;
  *    StringRedisTemplate = RedisTemplate<String, String> ；
  *    给redis存数据，key是string，value序列化成字符串
  */
-@EnableAspectJAutoProxy//开启AspectJ的自动代理  为任意类创建代理对象
-@Import(RedissonAutoConfiguration.class)
+
+
 @EnableThreadPool //
-@EnableFeignClients
+@EnableFeignClients(basePackages = {
+        "com.atguigu.gmall.feign.product"
+})
 @SpringCloudApplication
 public class ItemMainApplication {
 

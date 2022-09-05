@@ -5,9 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<modules>
 		<module>common</module>
-		<module>module</module>
+		<module>model</module>
 		<module>service</module>
 		<module>server-gateway</module>
+		<module>mall-cache-starter</module>
+
 	</modules>
 
 	<!--引入spring boot 父工程-->

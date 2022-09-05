@@ -31,16 +31,16 @@ public class BloomOpsServiceImpl implements BloomOpsService {
 
         //1、先准备一个新的布隆过滤器。所有东西都初始化好
         String newBloomName = bloomName + "_new";
-        RBloomFilter<Object> newBloomFilter = redissonClient.getBloomFilter(newBloomName);
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(newBloomName);
         //2、拿到所有商品id
 //        List<Long> allSkuId = skuInfoService.findAllSkuId();
         List list = dataQueryService.queryData(); //动态决定
 
         //3、初始化新的布隆
-        newBloomFilter.tryInit(5000000,0.00001);
+        bloomFilter.tryInit(5000000,0.00001);
 
         for (Object skuId : list) {
-            newBloomFilter.add(skuId);
+            bloomFilter.add(skuId);
         }
 
         //4、新布隆准备就绪
@@ -48,12 +48,12 @@ public class BloomOpsServiceImpl implements BloomOpsService {
 
         //5、两个交换；nb 要变成 ob。 大数据量的删除会导致redis卡死
         //最极致的做法：lua。 自己尝试写一下这lua脚本
-        oldbloomFilter.rename("old_bloom"); //老布隆下线
-        newBloomFilter.rename(bloomName); //新布隆上线
+        oldbloomFilter.rename("bbbb_bloom"); //老布隆下线
+        bloomFilter.rename(bloomName); //新布隆上线
 
         //6、删除老布隆，和中间交换层
         oldbloomFilter.deleteAsync();
-        redissonClient.getBloomFilter("old_bloom").deleteAsync();
+        redissonClient.getBloomFilter("bbbb_bloom").deleteAsync();
 
 
 

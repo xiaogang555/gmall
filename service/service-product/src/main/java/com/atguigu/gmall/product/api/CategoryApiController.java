@@ -1,7 +1,6 @@
 package com.atguigu.gmall.product.api;
 
 import com.atguigu.gmall.common.result.Result;
-
 import com.atguigu.gmall.model.to.CategoryTreeTo;
 import com.atguigu.gmall.product.service.BaseCategory2Service;
 import io.swagger.annotations.Api;
