@@ -12,10 +12,25 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
-  #配置链路追踪地址
-  zipkin:
-    base-url: http://192.168.200.100:9411/
-    sender:
-      type: web
+#  #配置链路追踪地址
+#  zipkin:
+#    base-url: http://192.168.200.100:9411/
+#    sender:
+#      type: web
 
+
+feign:
+  client:
+    config:
+      default: #所有的@feiclient标注的feign客户端全都使用这个配置
+        connectTimeout: 5000
+        readTimeout: 5000
+        retryer: com.atguigu.gmall.common.retry.MyRetryer
+#默认如果第一次请求超时，没有得到数据会重发一次
+
+
+#      #精准匹配
+#      service-product:
+#        connectTimeout: 5000
+#        readTimeout: 5000
 

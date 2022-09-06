@@ -20,7 +20,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //@EnableDiscoveryClient
 //@EnableCircuitBreaker
-//
+//因为com.atguigu.gmall.feign.product下有两个远程调用接口，所以会报错，需要在配置文件中spring.main.allow-bean-definition-overriding=true
 @EnableFeignClients(basePackages = {
         "com.atguigu.gmall.feign.item",
         "com.atguigu.gmall.feign.product"
