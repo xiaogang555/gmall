@@ -18,6 +18,8 @@ public class Goods {
     @Id
     private Long id;
 
+
+    //index = false 不用索引
     @Field(type = FieldType.Keyword, index = false)
     private String defaultImg;
 

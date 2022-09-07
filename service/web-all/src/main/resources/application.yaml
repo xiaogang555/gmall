@@ -19,13 +19,13 @@ spring:
 #      type: web
 
 
-feign:
-  client:
-    config:
-      default: #所有的@feiclient标注的feign客户端全都使用这个配置
-        connectTimeout: 5000
-        readTimeout: 5000
-        retryer: com.atguigu.gmall.common.retry.MyRetryer
+#feign:
+#  client:
+#    config:
+#      default: #所有的@feiclient标注的feign客户端全都使用这个配置
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        retryer: com.atguigu.gmall.common.retry.MyRetryer
 #默认如果第一次请求超时，没有得到数据会重发一次
 
 
@@ -33,4 +33,13 @@ feign:
 #      service-product:
 #        connectTimeout: 5000
 #        readTimeout: 5000
+
+
+
+
+
+
+
+
+
 

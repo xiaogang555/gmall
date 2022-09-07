@@ -23,7 +23,7 @@ import java.util.List;
 public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, BaseCategory2>
     implements BaseCategory2Service{
 
-    @Autowired
+    @Resource
     BaseCategory2Mapper baseCategory2Mapper;
 
 
