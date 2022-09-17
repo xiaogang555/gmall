@@ -79,7 +79,7 @@ public class CacheOpsServiceImpl implements CacheOpsService {
             redisTemplate.delete(cacheKey);
         },5,TimeUnit.SECONDS);
     }
-    
+
     @Override
     public boolean bloomContains(Object skuId) {
         RBloomFilter<Object> filter = redissonClient.getBloomFilter(SysRedisConst.BLOOM_SKUID);

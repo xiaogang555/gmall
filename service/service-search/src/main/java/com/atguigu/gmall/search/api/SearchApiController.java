@@ -6,16 +6,18 @@ import com.atguigu.gmall.model.list.Goods;
 import com.atguigu.gmall.model.vo.search.SearchParamVo;
 import com.atguigu.gmall.model.vo.search.SearchResponseVo;
 import com.atguigu.gmall.search.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
 
 @RequestMapping("/api/inner/rpc/search")
 @RestController
 public class SearchApiController {
 
-    @Resource
+    @Autowired
     GoodsService goodsService;
     /**
      * 保存商品信息到es

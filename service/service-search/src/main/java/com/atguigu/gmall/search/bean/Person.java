@@ -10,14 +10,14 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * 1亿数据
  */
 @Data
-@Document(indexName = "person",shards = 1,replicas = 1) //shards  分片 replicas 副本
+@Document(indexName = "person",shards = 1,replicas = 1)
 public class Person {
 
     @Id
     private Long id;  //主键
 
     @Field(value = "first",type = FieldType.Keyword) //TEXT【存的时候会分词】，keyword【关键字不分词】：都是字符串
-    private String firstName;
+    private String firstName;  // 雷丰阳
 
     @Field(value = "last",type = FieldType.Keyword)
     private String lastName;

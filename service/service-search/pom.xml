@@ -8,16 +8,16 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <description>检索服务</description>
 
     <artifactId>service-search</artifactId>
 
-    <description>检索服务</description>
-
-
-
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
@@ -29,8 +29,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
-
 
 </project>

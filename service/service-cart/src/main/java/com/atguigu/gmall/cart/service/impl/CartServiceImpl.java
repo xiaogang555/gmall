@@ -1,30 +1,33 @@
 package com.atguigu.gmall.cart.service.impl;
+import java.math.BigDecimal;
+
+import com.atguigu.gmall.common.execption.GmallException;
+import com.atguigu.gmall.common.result.ResultCodeEnum;
+import com.atguigu.gmall.common.util.Jsons;
+import com.google.common.collect.Lists;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.atguigu.gmall.cart.service.CartService;
 import com.atguigu.gmall.common.auth.AuthUtils;
 import com.atguigu.gmall.common.constant.SysRedisConst;
-import com.atguigu.gmall.common.execption.GmallException;
 import com.atguigu.gmall.common.result.Result;
-import com.atguigu.gmall.common.result.ResultCodeEnum;
-import com.atguigu.gmall.common.util.Jsons;
 import com.atguigu.gmall.feign.product.SkuProductFeignClient;
 import com.atguigu.gmall.model.cart.CartInfo;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.vo.user.UserAuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -46,7 +49,7 @@ public class CartServiceImpl implements CartService {
 
         //2、给购物车添加指定商品
         SkuInfo skuInfo = addItemToCart(skuId,num,cartKey);
-        System.out.println(cartKey);
+
         //3、购物车超时设置。 自动延期。
         UserAuthInfo authInfo = AuthUtils.getCurrentAuthInfo();
         if(authInfo.getUserId() == null){
@@ -165,7 +168,7 @@ public class CartServiceImpl implements CartService {
             //3、移除数据
             RequestContextHolder.resetRequestAttributes();
         });
-        updateCartAllItemsPrice(cartKey,infos);
+//        updateCartAllItemsPrice(cartKey,infos);
         return infos;
     }
 

@@ -1,6 +1,8 @@
 package com.atguigu.gmall.search.bean;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 

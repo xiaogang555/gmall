@@ -12,5 +12,4 @@ import java.lang.annotation.*;
 @Documented
 @Import(GlobalExceptionHandler.class)
 public @interface EnableAutoExceptionHandler {
-
 }

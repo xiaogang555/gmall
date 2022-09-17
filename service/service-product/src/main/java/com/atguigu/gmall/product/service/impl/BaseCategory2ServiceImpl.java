@@ -23,7 +23,7 @@ import java.util.List;
 public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, BaseCategory2>
     implements BaseCategory2Service{
 
-    @Resource
+    @Autowired
     BaseCategory2Mapper baseCategory2Mapper;
 
 
@@ -51,7 +51,7 @@ public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, B
     @Override
     public List<CategoryTreeTo> getAllCategoryWithTree() {
         System.out.println("查询三级分类树形数据...");
-        //3
+        //雷哈哈哈
         return baseCategory2Mapper.getAllCategoryWithTree();
     }
 }

@@ -3,7 +3,11 @@ package com.atguigu.gmall.cart.exception;
 import com.atguigu.gmall.common.execption.GmallException;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.common.result.ResultCodeEnum;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 //告诉SpringBoot 这是所有 @Controller 的统一切面
 // @RestController

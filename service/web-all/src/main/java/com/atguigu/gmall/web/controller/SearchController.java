@@ -4,22 +4,19 @@ import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.feign.search.SearchFeignClient;
 import com.atguigu.gmall.model.vo.search.SearchParamVo;
 import com.atguigu.gmall.model.vo.search.SearchResponseVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SearchController {
 
 
-    @Resource
+    @Autowired
     SearchFeignClient searchFeignClient;
-
-
-
     /**
      * 检索列表页
      * 检索条件参数：
@@ -36,7 +33,7 @@ public class SearchController {
      * @return
      */
     @GetMapping("/list.html")
-    public String search(SearchParamVo searchParamVo,Model model,HttpServletRequest request){
+    public String search(SearchParamVo searchParamVo, Model model, HttpServletRequest request){
 
 
 
@@ -63,7 +60,9 @@ public class SearchController {
         model.addAttribute("totalPages",data.getTotalPages());
         //9、url信息
         model.addAttribute("urlParam",data.getUrlParam());
+
+
+
         return "list/index";
     }
 }
-

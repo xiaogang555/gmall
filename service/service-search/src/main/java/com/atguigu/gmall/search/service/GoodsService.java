@@ -5,8 +5,6 @@ import com.atguigu.gmall.model.vo.search.SearchParamVo;
 import com.atguigu.gmall.model.vo.search.SearchResponseVo;
 
 public interface GoodsService {
-
-
     void saveGoods(Goods goods);
 
     void deleteGoods(Long skuId);

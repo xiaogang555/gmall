@@ -1,9 +1,9 @@
 package com.atguigu.gmall.common.auth;
 
-
 import com.atguigu.gmall.common.constant.SysRedisConst;
 import com.atguigu.gmall.model.vo.user.UserAuthInfo;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

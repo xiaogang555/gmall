@@ -7,13 +7,15 @@ import com.atguigu.gmall.user.mapper.UserAddressMapper;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 孙永刚
+* @author lfy
 * @description 针对表【user_address(用户地址表)】的数据库操作Service实现
-* @createDate 2022-09-11 22:37:08
+* @createDate 2022-09-06 15:51:47
 */
 @Service
 public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress>
     implements UserAddressService{
+
+
 
 }
 

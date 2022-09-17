@@ -2,9 +2,12 @@ package com.atguigu.gmall.cart.controller;
 
 
 import com.atguigu.gmall.cart.service.CartService;
+import com.atguigu.gmall.common.auth.AuthUtils;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.cart.CartInfo;
+import com.atguigu.gmall.model.vo.user.UserAuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

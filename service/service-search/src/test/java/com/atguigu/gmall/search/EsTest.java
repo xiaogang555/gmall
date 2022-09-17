@@ -8,21 +8,78 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
 public class EsTest {
 
-    @Resource
-    PersonRepository personRepository;//简单查
+    @Autowired
+    PersonRepository personRepository;
 
-    @Resource
-    ElasticsearchRestTemplate elasticsearchRestTemplate;//复杂查询
+    @Autowired
+    ElasticsearchRestTemplate esRestTemplate;
 
     @Test
-    public void test(){
+    void queryqTest(){
+        //索引： 数据库
+        //索引一条数据，指给es中保存一条数据
+    }
+
+
+
+    @Test
+    void aaaTest(){
+        List<Person> aaaaaa = personRepository.findhaHA("北京市");
+        for (Person person : aaaaaa) {
+            System.out.println(person);
+        }
+    }
+
+    /**
+     * GET /person/_search
+     * {
+     *   "query": {
+     *     "match": {
+     *       "address": "北京市"
+     *     }
+     *   }
+     * }
+     */
+    @Test
+    void queryTest(){
+//        Optional<Person> byId = personRepository.findById(2L);
+//        System.out.println(byId.get());
+
+        //1、查询 address 在北京市的人
+        List<Person> 北京市 = personRepository.findAllByAddressLike("北京市");
+//        for (Person person : 北京市) {
+//            System.out.println(person);
+//        }
+
+        //2、查询 年龄小于等于 19的人
+        List<Person> all = personRepository.findAllByAgeLessThanEqual(19);
+//        for (Person person : all) {
+//            System.out.println(person);
+//        }
+
+        //3、查询 年龄 大于 18 且 在北京市的人
+        List<Person> 上海市 = personRepository.findAllByAgeGreaterThanAndAddressLike(18, "上海市");
+//        for (Person person : 上海市) {
+//            System.out.println(person);
+//        }
+        //4、查询 年龄 大于 18 且 在北京市的人  或  id=3的人
+        List<Person> 北京市1 = personRepository.findAllByAgeGreaterThanAndAddressLikeOrIdEquals(18, "北京市", 3L);
+        for (Person person : 北京市1) {
+            System.out.println(person);
+        }
+
+    }
+
+
+    @Test
+    void saveTest(){
+
         Person person1 = new Person();
         person1.setId(1L);
         person1.setFirstName("三555");
@@ -51,26 +108,12 @@ public class EsTest {
         person3.setLastName("张");
         person3.setAge(20);
         person3.setAddress("北京市天安门");
-
         personRepository.save(person1);
         personRepository.save(person);
         personRepository.save(person2);
         personRepository.save(person3);
 
         System.out.println("完成...");
-    }
-
-    @Test
-    public void query(){
-
-
-        //简单的以及自定义好了
-//        Optional<Person> byId = personRepository.findById(2L);
-//        System.out.println(byId);
-
-        //复杂的起名
-        List<Person> like = personRepository.findAllByAddressLike("北京市");
-        System.out.println(like);
 
     }
 }

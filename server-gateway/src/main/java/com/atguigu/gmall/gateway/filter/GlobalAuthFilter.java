@@ -1,6 +1,5 @@
 package com.atguigu.gmall.gateway.filter;
 
-
 import com.atguigu.gmall.common.constant.SysRedisConst;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.common.result.ResultCodeEnum;
@@ -35,7 +34,6 @@ import java.time.Duration;
  * <p>
  * Servlet：阻塞式编程方式
  */
-
 @Slf4j
 @Component
 public class GlobalAuthFilter implements GlobalFilter {
@@ -181,7 +179,6 @@ public class GlobalAuthFilter implements GlobalFilter {
         //用户登录了
         if(info != null){
             newReqbuilder.header(SysRedisConst.USERID_HEADER,info.getId().toString());
-            System.out.println(SysRedisConst.USERID_HEADER+"啊啊啊啊啊啊啊啊");
         }
         //用户没登录
         String userTempId = getUserTempId(exchange);
@@ -254,7 +251,7 @@ public class GlobalAuthFilter implements GlobalFilter {
     private UserInfo getTokenUserInfo(String tokenValue) {
         String json = redisTemplate.opsForValue().get(SysRedisConst.LOGIN_USER + tokenValue);
         if(!StringUtils.isEmpty(json)){
-            return Jsons.toObj(json,UserInfo.class);
+           return Jsons.toObj(json,UserInfo.class);
         }
         return null;
     }

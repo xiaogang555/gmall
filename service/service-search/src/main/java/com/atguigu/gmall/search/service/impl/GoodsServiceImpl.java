@@ -3,18 +3,18 @@ import com.atguigu.gmall.model.list.SearchAttr;
 import com.atguigu.gmall.model.vo.search.*;
 import com.google.common.collect.Lists;
 
-
 import com.atguigu.gmall.common.constant.SysRedisConst;
 import com.atguigu.gmall.model.list.Goods;
 import com.atguigu.gmall.search.repository.GoodsRepository;
 import com.atguigu.gmall.search.service.GoodsService;
-import feign.QueryMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.NestedQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.nested.NestedAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.nested.ParsedNested;
 import org.elasticsearch.search.aggregations.bucket.terms.ParsedLongTerms;
@@ -24,9 +24,9 @@ import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilde
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
@@ -38,6 +38,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -413,8 +414,8 @@ public class GoodsServiceImpl implements GoodsService {
         if(!StringUtils.isEmpty(paramVo.getKeyword())){
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             highlightBuilder.field("title")
-                    .preTags("<span style='color:red'>")
-                    .postTags("</span>");
+                            .preTags("<span style='color:red'>")
+                            .postTags("</span>");
 
             HighlightQuery highlightQuery = new HighlightQuery(highlightBuilder);
             query.setHighlightQuery(highlightQuery);
@@ -469,43 +470,3 @@ public class GoodsServiceImpl implements GoodsService {
         return query;
     }
 }
-//GET /goods/_search
-//{
-//  "query": {
-//    "bool": {
-//      "must": [
-//        {
-//          "term": {
-//            "category3Id": {
-//              "value": "61"
-//            }
-//          }
-//        },
-//        {"term": {
-//          "tmId": {
-//            "value": "4"
-//          }
-//        }},
-//        {"nested": {
-//          "path": "attrs",
-//          "query": {
-//            "bool": {
-//              "must": [
-//                {
-//                 "term": {
-//                   "attrs.attrId": {
-//                     "value": "4"
-//                   }
-//                 }
-//                },
-//                {"match": {
-//                  "attrs.attrValue": "128GB"
-//                }}
-//              ]
-//            }
-//          }
-//        }}
-//      ]
-//    }
-//  }
-//}
